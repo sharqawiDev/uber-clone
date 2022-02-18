@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// In App.js in a new project
 
-export default function App() {
+import * as React from 'react';
+import { View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as Font from "expo-font"
+import { useState } from 'react';
+import OnboardingScreen from './pages/Onboarding';
+import MobileScreen from './pages/Mobile';
+import PrivacyScreen from './pages/Privacy';
+
+const Stack = createNativeStackNavigator();
+
+function App() {
+  const [fontLoaded, setFontLoaded] = useState(false)
+  Font.loadAsync(({
+    "Ubuntu-Light": require('./assets/fonts/Ubuntu-Light.ttf'),
+    "Ubuntu-Regular": require('./assets/fonts/Ubuntu-Regular.ttf'),
+    "Ubuntu-Medium": require('./assets/fonts/Ubuntu-Medium.ttf'),
+    "Ubuntu-Bold": require('./assets/fonts/Ubuntu-Bold.ttf'),
+  })).then(() => setFontLoaded(true))
+
+  if (!fontLoaded) {
+    return <View />;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="home" component={OnboardingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="mobile" component={MobileScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="privacy" component={PrivacyScreen} options={{ headerTitle: "Terms and Conditions" }} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
