@@ -14,6 +14,7 @@ import MobileScreen from './pages/Mobile';
 import PrivacyScreen from './pages/Privacy';
 import OTPScreen from "./pages/OTP"
 import NameScreen from './pages/Name';
+import HomeScreen from './pages/Home';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -33,11 +34,12 @@ function App() {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="home" component={OnboardingScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
           <Stack.Screen name="mobile" component={MobileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="privacy" component={PrivacyScreen} options={{ headerTitle: "Terms and Conditions" }} />
           <Stack.Screen name="otp" component={OTPScreen} options={{ headerShown: false }} />
           <Stack.Screen name="name" component={NameScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="home" component={HomeScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />

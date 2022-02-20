@@ -22,7 +22,7 @@ export default function OTP({ navigation }) {
     const num1Ref = useRef();
     const num2Ref = useRef();
     const num3Ref = useRef();
-    const mobile = useSelector((state) => state.mobile.mobileNumber)
+    const mobile = useSelector((state) => state.user.mobileNumber)
     let shakeTextRef = useRef();
 
     const validateOTP = () => {
@@ -73,8 +73,9 @@ export default function OTP({ navigation }) {
     }
 
     useEffect(() => {
-        showToast()
+        showToast();
         timer(60);
+        num0Ref.current.focus()
         return () => {
             // for clearing all timers
             var id = window.setTimeout(function () { }, 0);

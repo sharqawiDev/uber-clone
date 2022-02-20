@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
-import MobileReducer from "./mobile"
+import UserReducer from "./user"
 export const store = configureStore({
     reducer: {
-        mobile: MobileReducer
+        user: UserReducer
     },
 })

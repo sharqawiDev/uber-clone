@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { setMobile } from '../redux/mobile'
+import { setMobile } from '../redux/user'
 
 
 export default function Mobile({ navigation }) {

@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { setMobile } from '../redux/mobile'
+import { setName as setNameRedux, setEmail as setEmailRedux } from '../redux/user'
 
 
 export default function Name({ navigation }) {
@@ -27,8 +27,9 @@ export default function Name({ navigation }) {
     const dispatch = useDispatch()
 
     const goHome = () => {
-        dispatch(setMobile(`${countryCode}${phoneNumber}`))
-        navigation.navigate("otp")
+        dispatch(setNameRedux(name))
+        dispatch(setEmailRedux(email))
+        navigation.navigate("home")
     }
 
     return (
@@ -79,7 +80,7 @@ export default function Name({ navigation }) {
                     style={[styles.startBtn, { opacity: !validInput ? 0.2 : 1 }]}
                     onPress={goHome}
                     disabled={!validInput}>
-                    <Text style={styles.btnText}>Next</Text>
+                    <Text style={styles.btnText}>Finish Registration</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView >
         </TouchableWithoutFeedback>
