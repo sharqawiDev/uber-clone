@@ -1,4 +1,3 @@
-import { NavigationContainer } from '@react-navigation/native'
 import React, { useState } from 'react'
 import {
     View,
@@ -10,11 +9,24 @@ import {
     TouchableWithoutFeedback,
     TouchableOpacity,
 } from 'react-native'
+import { useDispatch } from 'react-redux'
+import { setMobile } from '../redux/mobile'
 
 
 export default function Mobile({ navigation }) {
     const [countryCode, setCountryCode] = useState("+966")
-    const [phoneNumber, setPhoneNumber] = useState("")
+    const [phoneNumber, setPhoneNumber] = useState("501722141") // remove value
+    const validInput = /^\+/.test(countryCode) &&
+        (phoneNumber.length >= 9 && phoneNumber.length <= 10) &&
+        (countryCode === "+966" ? phoneNumber.startsWith("5") : phoneNumber.startsWith("0"))
+
+    const dispatch = useDispatch()
+
+    const goToOTP = () => {
+        dispatch(setMobile(`${countryCode}${phoneNumber}`))
+        navigation.navigate("otp")
+    }
+
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <KeyboardAvoidingView style={styles.container}>
@@ -33,6 +45,8 @@ export default function Mobile({ navigation }) {
                         maxLength={countryCode === "+966" ? 9 : 10}
                         value={phoneNumber}
                         onChangeText={(text) => setPhoneNumber(text)}
+                        placeholder={countryCode === "+966" ? "5XXXXXXXX" : "01234567890"}
+                        placeholderTextColor={"rgba(255,255,255,0.3)"}
                     />
                     <Text style={styles.TC}>By continuing, I confirm I have
                         {'\n'}read the </Text>
@@ -40,7 +54,10 @@ export default function Mobile({ navigation }) {
                         <Text style={{ color: "#514BC3", fontFamily: "Ubuntu-Regular", fontSize: 16 }}>Privacy Policy</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.startBtn}>
+                <TouchableOpacity
+                    style={[styles.startBtn, { opacity: !validInput ? 0.2 : 1 }]}
+                    onPress={goToOTP}
+                    disabled={!validInput}>
                     <Text style={styles.btnText}>Accept and Continue</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView >

@@ -6,8 +6,9 @@ export default function Privacy() {
     return (
         <View style={styles.webViewContainer}>
             <WebView
-                source={{ uri: "https://help.uber.com/riders/article/privacy-notice-information?nodeId=e1f427a1-c1ab-4c6a-a78a-864f47877558" }}
+                source={{ uri: "https://www.uber.com/legal/en/document/?name=privacy-notice&country=saudi-arabia&lang=ar" }}
                 style={styles.webView}
+                onLoadStart={() => console.log("loading")}
             />
         </View>
     )
