@@ -1,8 +1,8 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import React, { useEffect, useRef } from 'react'
 import LottieView from 'lottie-react-native';
 
-export default function Home() {
+export default function Loader() {
     const lottieRef = useRef()
 
     useEffect(() => {

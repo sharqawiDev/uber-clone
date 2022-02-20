@@ -3,6 +3,7 @@ import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
 
 export default function Onboarding({ navigation }) {
 
+
     return (
         <View style={styles.container}>
             <StatusBar />
