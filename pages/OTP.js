@@ -13,11 +13,11 @@ import Toast from 'react-native-toast-message';
 import ShakeText from "react-native-shake-text";
 import { useSelector } from 'react-redux'
 
-export default function Mobile({ navigation }) {
+export default function OTP({ navigation }) {
     const [OTP, setOTP] = useState(["", "", "", ""]);
     const [countDown, setCountDown] = useState("");
     const [showOTPError, setShowOTPError] = useState(false)
-    const correctOTP = "1234";
+    const [correctOTP, setCorrectOTP] = useState(["", "", "", ""].map(i => i = Math.floor((Math.random() * 9))).join(""))
     const num0Ref = useRef();
     const num1Ref = useRef();
     const num2Ref = useRef();
@@ -33,7 +33,7 @@ export default function Mobile({ navigation }) {
             }, 0);
         } else {
             setShowOTPError(false);
-
+            navigation.navigate("name")
         }
     }
 
@@ -74,12 +74,15 @@ export default function Mobile({ navigation }) {
 
     useEffect(() => {
         showToast()
-        // for clearing all timers
-        var id = window.setTimeout(function () { }, 0);
-        while (id--) {
-            window.clearTimeout(id); // will do nothing if no timeout with id is present
-        }
         timer(60);
+        return () => {
+            // for clearing all timers
+            var id = window.setTimeout(function () { }, 0);
+            while (id--) {
+                window.clearTimeout(id); // will do nothing if no timeout with id is present
+            }
+            Toast.hide()
+        }
     }, []);
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

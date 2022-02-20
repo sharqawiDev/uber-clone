@@ -13,6 +13,7 @@ import OnboardingScreen from './pages/Onboarding';
 import MobileScreen from './pages/Mobile';
 import PrivacyScreen from './pages/Privacy';
 import OTPScreen from "./pages/OTP"
+import NameScreen from './pages/Name';
 const Stack = createNativeStackNavigator();
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Stack.Screen name="mobile" component={MobileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="privacy" component={PrivacyScreen} options={{ headerTitle: "Terms and Conditions" }} />
           <Stack.Screen name="otp" component={OTPScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="name" component={NameScreen} options={{ headerShown: false }} />
         </Stack.Navigator>
       </NavigationContainer>
       <Toast />
