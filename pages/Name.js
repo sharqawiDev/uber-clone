@@ -11,6 +11,7 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { setName as setNameRedux, setEmail as setEmailRedux } from '../redux/user'
+import { showLoader } from '../redux/utility'
 
 
 export default function Name({ navigation }) {
@@ -29,7 +30,14 @@ export default function Name({ navigation }) {
     const goHome = () => {
         dispatch(setNameRedux(name))
         dispatch(setEmailRedux(email))
-        navigation.navigate("home")
+        dispatch(showLoader(true))
+        setTimeout(() => {
+            dispatch(showLoader(false))
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'home' }],
+            });
+        }, 1500);
     }
 
     return (
@@ -140,6 +148,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: "white",
-        fontFamily: "Ubuntu-Regular"
+        fontFamily: "Ubuntu-Regular",
+        fontSize: 17,
     },
 })

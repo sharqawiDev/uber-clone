@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     car: {
         position: "absolute",
         top: "40%",
-        left: "20%"
+        left: "25%"
     },
     header: {
         marginTop: "20%",
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: "white",
-        fontFamily: "Ubuntu-Regular"
+        fontFamily: "Ubuntu-Regular",
+        fontSize: 17,
     }
 });

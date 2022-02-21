@@ -257,6 +257,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: "white",
-        fontFamily: "Ubuntu-Regular"
+        fontFamily: "Ubuntu-Regular",
+        fontSize: 17,
     },
 })

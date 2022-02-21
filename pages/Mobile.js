@@ -11,11 +11,12 @@ import {
 } from 'react-native'
 import { useDispatch } from 'react-redux'
 import { setMobile } from '../redux/user'
+import { showLoader } from '../redux/utility'
 
 
 export default function Mobile({ navigation }) {
     const [countryCode, setCountryCode] = useState("+966")
-    const [phoneNumber, setPhoneNumber] = useState("501722141") // remove value
+    const [phoneNumber, setPhoneNumber] = useState("")
     const validInput = /^\+/.test(countryCode) &&
         (phoneNumber.length >= 9 && phoneNumber.length <= 10) &&
         (countryCode === "+966" ? phoneNumber.startsWith("5") : phoneNumber.startsWith("0"))
@@ -24,7 +25,11 @@ export default function Mobile({ navigation }) {
 
     const goToOTP = () => {
         dispatch(setMobile(`${countryCode}${phoneNumber}`))
-        navigation.navigate("otp")
+        dispatch(showLoader(true))
+        setTimeout(() => {
+            dispatch(showLoader(false))
+            navigation.navigate("otp")
+        }, 1500);
     }
 
     return (
@@ -130,6 +135,7 @@ const styles = StyleSheet.create({
     },
     btnText: {
         color: "white",
-        fontFamily: "Ubuntu-Regular"
+        fontFamily: "Ubuntu-Regular",
+        fontSize: 17,
     },
 })
