@@ -10,8 +10,8 @@ import {
     TouchableOpacity,
 } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { setName as setNameRedux, setEmail as setEmailRedux } from '../redux/user'
-import { showLoader } from '../redux/utility'
+import { setName as setNameRedux, setEmail as setEmailRedux } from '../redux/user';
+import { showLoader } from '../redux/utility';
 
 
 export default function Name({ navigation }) {

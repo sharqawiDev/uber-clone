@@ -126,6 +126,10 @@ export default function OTP({ navigation }) {
                         maxLength={1}
                         ref={num1Ref}
                         value={OTP[1]}
+                        onKeyPress={({ nativeEvent }) => {
+                            if (nativeEvent.key === 'Backspace')
+                                num0Ref.current.focus();
+                        }}
                     />
                     <TextInput
                         style={styles.inputShort}
@@ -145,6 +149,10 @@ export default function OTP({ navigation }) {
                         maxLength={1}
                         ref={num2Ref}
                         value={OTP[2]}
+                        onKeyPress={({ nativeEvent }) => {
+                            if (nativeEvent.key === 'Backspace')
+                                num1Ref.current.focus();
+                        }}
                     />
                     <TextInput
                         style={styles.inputShort}
@@ -164,6 +172,10 @@ export default function OTP({ navigation }) {
                         maxLength={1}
                         ref={num3Ref}
                         value={OTP[3]}
+                        onKeyPress={({ nativeEvent }) => {
+                            if (nativeEvent.key === 'Backspace')
+                                num2Ref.current.focus();
+                        }}
                     />
                     {
                         showOTPError &&

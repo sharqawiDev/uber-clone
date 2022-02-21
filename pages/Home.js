@@ -1,23 +1,24 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect } from 'react'
+import MapView from 'react-native-maps';
 
 export default function Home() {
-
     return (
         <View style={styles.container}>
-            <Text>Hello</Text>
+            <MapView style={styles.map} />
         </View>
-    )
+    );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
-    img: {
-        width: 200,
-        height: 200,
-    }
-})
+    map: {
+        width: "100%",
+        height: "100%",
+    },
+});
