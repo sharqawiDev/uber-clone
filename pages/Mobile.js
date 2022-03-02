@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
     View,
     Text,
@@ -17,11 +17,17 @@ import { showLoader } from '../redux/utility'
 export default function Mobile({ navigation }) {
     const [countryCode, setCountryCode] = useState("+966")
     const [phoneNumber, setPhoneNumber] = useState("")
+    const [showBtn, setShowBtn] = useState(true)
     const validInput = /^\+/.test(countryCode) &&
         (phoneNumber.length >= 9 && phoneNumber.length <= 10) &&
         (countryCode === "+966" ? phoneNumber.startsWith("5") : phoneNumber.startsWith("0"))
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
+        Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
+    }, [])
 
     const goToOTP = () => {
         dispatch(setMobile(`${countryCode}${phoneNumber}`))
@@ -60,12 +66,12 @@ export default function Mobile({ navigation }) {
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity
-                    style={[styles.startBtn, { opacity: !validInput ? 0.2 : 1 }]}
+                    style={[styles.startBtn, { opacity: !validInput ? 0.2 : 1, display: showBtn ? 'flex' : 'none' }]}
                     onPress={goToOTP}
                     disabled={!validInput}>
                     <Text style={styles.btnText}>Accept and Continue</Text>
                 </TouchableOpacity>
-            </KeyboardAvoidingView >
+            </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
     )
 }
@@ -125,13 +131,14 @@ const styles = StyleSheet.create({
     },
     startBtn: {
         marginTop: "auto",
-        marginBottom: "10%",
+        marginBottom: "5%",
+        alignSelf: 'center',
         backgroundColor: "#514BC3",
         width: 315,
         height: 65,
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: 20
+        borderRadius: 20,
     },
     btnText: {
         color: "white",

@@ -14,6 +14,7 @@ import PrivacyScreen from './pages/Privacy';
 import OTPScreen from "./pages/OTP"
 import NameScreen from './pages/Name';
 import HomeScreen from './pages/Home';
+import SplashScreen from './pages/Splash';
 import Loader from './components/Loader';
 const Stack = createNativeStackNavigator();
 
@@ -27,9 +28,6 @@ function ReduxApp() {
     "Ubuntu-Bold": require('./assets/fonts/Ubuntu-Bold.ttf'),
   })).then(() => setFontLoaded(true))
 
-  if (!fontLoaded) {
-    return <Loader />;
-  }
   return (
     <Provider store={store}>
       <App />
@@ -42,7 +40,8 @@ const App = () => {
   return (
     <>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName='splash'>
+          <Stack.Screen name="splash" component={SplashScreen} options={{ headerShown: false, }} />
           <Stack.Screen name="onboarding" component={OnboardingScreen} options={{ headerShown: false }} />
           <Stack.Screen name="mobile" component={MobileScreen} options={{ headerShown: false }} />
           <Stack.Screen name="privacy" component={PrivacyScreen} options={{ headerTitle: "Terms and Conditions" }} />

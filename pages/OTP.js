@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux'
 export default function OTP({ navigation }) {
     const [OTP, setOTP] = useState(["", "", "", ""]);
     const [countDown, setCountDown] = useState("");
+    const [showBtn, setShowBtn] = useState(true);
     const [showOTPError, setShowOTPError] = useState(false)
     const [correctOTP, setCorrectOTP] = useState(["", "", "", ""].map(i => i = Math.floor((Math.random() * 9))).join(""))
     const num0Ref = useRef();
@@ -76,6 +77,8 @@ export default function OTP({ navigation }) {
         showToast();
         timer(60);
         num0Ref.current.focus()
+        Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
+        Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
         return () => {
             // for clearing all timers
             var id = window.setTimeout(function () { }, 0);
@@ -194,7 +197,7 @@ export default function OTP({ navigation }) {
                     }
                 </View>
                 <TouchableOpacity
-                    style={[styles.startBtn, { opacity: isValidOTP() ? 1 : 0.2 }]}
+                    style={[styles.startBtn, { opacity: isValidOTP() ? 1 : 0.2, display: showBtn ? 'flex' : 'none' }]}
                     disabled={!isValidOTP()}
                     onPress={validateOTP}
                 >
