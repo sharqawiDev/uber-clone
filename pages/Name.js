@@ -32,6 +32,10 @@ export default function Name({ navigation }) {
     useEffect(() => {
         Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
         Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
+
+        return () => {
+            Keyboard.removeAllListeners()
+        }
     }, [])
 
     const storeData = async () => {

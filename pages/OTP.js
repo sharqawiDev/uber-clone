@@ -25,12 +25,28 @@ export default function OTP({ navigation }) {
     const num3Ref = useRef();
     const mobile = useSelector((state) => state.user.mobileNumber)
     let shakeTextRef = useRef();
+    let countDownTimer;
+
+    useEffect(() => {
+        showToast();
+        timer(60);
+        num0Ref.current.focus()
+        Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
+        Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
+        return () => {
+            // for clearing all timers
+            clearTimeout(countDownTimer)
+            Keyboard.removeAllListeners()
+            clearTimeout()
+            Toast.hide()
+        }
+    }, []);
 
     const validateOTP = () => {
         if (OTP.join("") !== correctOTP) {
             setShowOTPError(true)
             setTimeout(() => {
-                shakeTextRef?.current.startShakeAnimation?.()
+                shakeTextRef?.current.startShakeAnimation?.();
             }, 0);
         } else {
             setShowOTPError(false);
@@ -57,7 +73,7 @@ export default function OTP({ navigation }) {
         remaining -= 1;
 
         if (remaining >= 0 && timerOn) {
-            setTimeout(function () {
+            countDownTimer = setTimeout(function () {
                 timer(remaining);
             }, 1000);
             return;
@@ -72,22 +88,6 @@ export default function OTP({ navigation }) {
             text1: `OTP: ${correctOTP}`,
         });
     }
-
-    useEffect(() => {
-        showToast();
-        timer(60);
-        num0Ref.current.focus()
-        Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
-        Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
-        return () => {
-            // for clearing all timers
-            var id = window.setTimeout(function () { }, 0);
-            while (id--) {
-                window.clearTimeout(id); // will do nothing if no timeout with id is present
-            }
-            Toast.hide()
-        }
-    }, []);
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
             <KeyboardAvoidingView style={styles.container}>

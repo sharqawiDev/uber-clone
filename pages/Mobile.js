@@ -27,6 +27,11 @@ export default function Mobile({ navigation }) {
     useEffect(() => {
         Keyboard.addListener('keyboardDidShow', () => setShowBtn(false))
         Keyboard.addListener('keyboardDidHide', () => setShowBtn(true))
+
+        return () => {
+            Keyboard.removeAllListeners()
+        }
+
     }, [])
 
     const goToOTP = () => {

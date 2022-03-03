@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native'
+import { View, StyleSheet, StatusBar } from 'react-native'
 import React, { useRef } from 'react'
 import LottieView from 'lottie-react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -9,9 +9,15 @@ export default function Splash({ navigation }) {
         try {
             const mobile = await AsyncStorage.getItem(STORAGE_ENUM.MOBILE);
             if (mobile)
-                navigation.navigate('home')
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'home' }],
+                });
             else
-                navigation.navigate('onboarding')
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'onboarding' }],
+                });
         } catch (e) {
             console.log(e)
         }
@@ -19,6 +25,7 @@ export default function Splash({ navigation }) {
     const lottieRef = useRef()
     return (
         <View style={styles.container}>
+            <StatusBar barStyle='dark-content' />
             <LottieView
                 ref={lottieRef}
                 source={require('../assets/img/splash-animation.json')}

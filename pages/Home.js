@@ -1,4 +1,4 @@
-import { View, StyleSheet, ActivityIndicator, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, ActivityIndicator, Text } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -15,15 +15,14 @@ export default function Home() {
             if (status !== 'granted') {
                 return;
             }
-            let location = await Location.getCurrentPositionAsync({});
-            setLocation(location);
+            let locationRes = await Location.getCurrentPositionAsync({});
+            setLocation(locationRes);
             mapRef.current.animateToRegion({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
+                latitude: locationRes.coords.latitude,
+                longitude: locationRes.coords.longitude,
                 latitudeDelta: 0.01,
                 longitudeDelta: 0.01
             })
-
         })();
     }, []);
     return (
@@ -40,6 +39,7 @@ export default function Home() {
                             longitudeDelta: 0.05,
                         }}
                         ref={mapRef}
+                        provider={'google'}
                     >
                         {
                             location &&
